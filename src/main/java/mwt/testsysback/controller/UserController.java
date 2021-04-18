@@ -29,12 +29,21 @@ public class UserController {
         return userService.getAllUser();
     }
 
+    @RequestMapping(value = "/getUser",method = RequestMethod.POST)
+    @ResponseBody
+    public User getUser(User user){
+        return userService.getUser(user);
+    }
+
+
     @RequestMapping(value = "/login")
     public CommonResult login2(@RequestBody User user) {
-        if (userService.login(user))
-            return CommonResult.success(user);
-        else
+        if (userService.login(user)) {
+            User info = getUser(user);
+            return CommonResult.success(info);
+        } else {
             return CommonResult.validateFailed();
+        }
     }
 
 }

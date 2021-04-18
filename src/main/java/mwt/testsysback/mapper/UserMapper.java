@@ -11,8 +11,12 @@ public interface UserMapper {
     @Select("select * from user")
     List<User> getAllUser();
 
+    //获取指定用户
+    @Select("select * from user where username=#{username}")
+    public User getUser(User user);
+
     //用户注册
-    @Insert("INSERT INTO USER (username,password,) VALUES(#{username},#{password})")
+    @Insert("INSERT INTO USER (username,nickname,password,identity) VALUES(#{username},#{nickname},#{password}),#{identity})")
     public void insertUser(User user);
 
     //用户登录
