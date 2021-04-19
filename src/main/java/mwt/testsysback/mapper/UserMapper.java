@@ -15,7 +15,7 @@ public interface UserMapper {
 
     //获取指定用户
     @Select("select * from user where user_id=#{user_id}")
-    public User getUserById(User user);
+    public User getUserById(int user_id);
 
     //用户注册
     @Insert("insert into user (username,nickname,password,identity) values(#{username},#{nickname},#{password}),#{identity})")

@@ -8,11 +8,11 @@ public interface UserService {
     List<User> getAllUser();
 
     //查找用户
-    public User getUserById(User user);
+    public User getUserById(int user_id);
 
     //用户注册
     public void insertUser(User user);
 
     //用户登录
-    public boolean login(User user);
+    public User login(User user);
 }

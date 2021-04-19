@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(User user){
+    public User getUserById(int user_id){
         System.out.println("业务层：用id查找用户");
-        return UserMapper.getUserById(user);
+        return UserMapper.getUserById(user_id);
     }
 
     @Override
@@ -32,15 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(User user) {
+    public User login(User user) {
         System.out.println("业务层：用户登录");
-        if(UserMapper.login(user) == null){
-            System.out.println("false");
-            return false;
-        }else{
-            System.out.println("true");
-            return true;
-        }
+        return UserMapper.login(user);
     }
 }
 

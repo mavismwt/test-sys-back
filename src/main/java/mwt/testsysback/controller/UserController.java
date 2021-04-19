@@ -28,18 +28,21 @@ public class UserController {
         return userService.getAllUser();
     }
 
-    @RequestMapping(value = "/getUser",method = RequestMethod.POST)
-    @ResponseBody
-    public User getUser(User user){
-        return userService.getUserById(user);
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
+    public CommonResult getUser(@RequestParam("user_id") int user_id){
+        if (userService.getUserById(user_id) != null) {
+            return CommonResult.success(userService.getUserById(user_id));
+        } else {
+            return CommonResult.failed();
+        }
     }
 
 
-    @RequestMapping(value = "/login")
+
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public CommonResult login2(@RequestBody User user) {
-        if (userService.login(user)) {
-            User info = getUser(user);
-            return CommonResult.success(info);
+        if (userService.login(user) != null) {
+            return CommonResult.success(userService.login(user));
         } else {
             return CommonResult.validateFailed();
         }
