@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(User user){
-        System.out.println("业务层：查找用户");
-        return UserMapper.getUser(user);
+    public User getUserById(User user){
+        System.out.println("业务层：用id查找用户");
+        return UserMapper.getUserById(user);
     }
 
     @Override

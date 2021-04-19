@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class UserController {
@@ -32,7 +31,7 @@ public class UserController {
     @RequestMapping(value = "/getUser",method = RequestMethod.POST)
     @ResponseBody
     public User getUser(User user){
-        return userService.getUser(user);
+        return userService.getUserById(user);
     }
 
 

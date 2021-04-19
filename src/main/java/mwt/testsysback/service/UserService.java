@@ -8,7 +8,7 @@ public interface UserService {
     List<User> getAllUser();
 
     //查找用户
-    public User getUser(User user);
+    public User getUserById(User user);
 
     //用户注册
     public void insertUser(User user);
