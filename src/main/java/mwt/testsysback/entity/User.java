@@ -7,7 +7,7 @@ public class User {
     private String password;
     private String identity;
     private String number;
-    private String group;
+    private String collection;
     private String assign;
 
     public int getUser_id() {
@@ -50,12 +50,12 @@ public class User {
         this.number = number;
     }
 
-    public  String getGroup() {
-        return group;
+    public  String getCollection() {
+        return collection;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setCollection(String collection) {
+        this.collection = collection;
     }
 
     public  String getAssign() {

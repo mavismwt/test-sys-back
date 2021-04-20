@@ -18,15 +18,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/getUsers",method = RequestMethod.GET)
-    @ResponseBody
-    /*
-     * List 里的对象是Map对象，而Map对象是
-     * 由一个String类型的键和Object类型的值组成
-     * */
-    public List<User> getUsers(){
+    @RequestMapping(value = "/getAllUsers",method = RequestMethod.GET)
+    public List<User> getAllUsers(){
         return userService.getAllUser();
     }
+
+    @RequestMapping(value = "/getUsers",method = RequestMethod.GET)
+    public List<User> getUsers(@RequestBody User user) {
+
+        return userService.getUsers(user);
+    }
+
+
 
     @RequestMapping(value = "/getUser",method = RequestMethod.GET)
     public CommonResult getUser(@RequestParam("user_id") int user_id){
@@ -36,8 +39,6 @@ public class UserController {
             return CommonResult.failed();
         }
     }
-
-
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public CommonResult login2(@RequestBody User user) {

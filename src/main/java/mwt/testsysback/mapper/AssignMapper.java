@@ -1,21 +1,29 @@
 package mwt.testsysback.mapper;
 
 import mwt.testsysback.entity.Assign;
+import mwt.testsysback.entity.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
+@Mapper
 public interface AssignMapper {
     //查询作业详情
     @Select("select * from assign where assign_id=#{assign_id}")
-    public Assign getAssignByID(Assign assign);
+    public Assign getAssignByID(int assign_id);
+
+    //条件查询(标题)
+    @Select("select * from assign where title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')")
+    List<User> getAssigns(Assign assign);
 
     //新建作业
-    @Insert("insert into assign (title,detail,weight,text_example,date_end) " +
-            "values(#{title},#{detail},#{weight}),#{text_example},date_end)")
+    @Insert("insert into assign (title,detail,weight,teachers,text_example,date_start,date_end) " +
+            "values(#{title},#{detail},#{weight},#{teachers},#{text_example},#{date_end},#{date_end})")
     public int insertAssign(Assign assign);
 
     //删除作业
     @Delete("delete from assign where assign_id=#{assign_id}")
-    public int deleteAssign(Assign assign);
+    public int deleteAssign(int assign_id);
 
     //修改作业-教师
     @Update("update assign set title=#{title} detail=#{detail} weight=#{weight} score=#{score}" +

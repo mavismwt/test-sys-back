@@ -10,6 +10,9 @@ public interface UserService {
     //查找用户
     public User getUserById(int user_id);
 
+    //条件查询
+    public List<User> getUsers(User user);
+
     //用户注册
     public void insertUser(User user);
 

@@ -1,26 +1,26 @@
 package mwt.testsysback.entity;
 
-public class Group {
+public class Collection {
 
-    private int group_id;
-    private String group_name;
+    private int collection_id;
+    private String collection_name;
     private String teachers;
     private String students;
 
-    public int getGroup_id() {
-        return group_id;
+    public int getCollection_id() {
+        return collection_id;
     }
 
-    public void setGroup_id(int id) {
-        this.group_id = id;
+    public void setCollection_id(int id) {
+        this.collection_id = id;
     }
 
-    public String getGroup_name() {
-        return group_name;
+    public String getCollection_name() {
+        return collection_name;
     }
 
-    public void setGroup_name(String group_name) {
-        this.group_name = group_name;
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
     }
 
     public String getTeachers() {

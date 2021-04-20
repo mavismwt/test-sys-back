@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsers(User user) {
+        System.out.println("业务层：条件查询用户");
+        return UserMapper.getUsers(user);
+    }
+
+    @Override
     public void insertUser(User user){
         System.out.println("业务层：注册用户");
         UserMapper.insertUser(user);

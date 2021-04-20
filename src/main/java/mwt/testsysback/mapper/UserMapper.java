@@ -17,6 +17,10 @@ public interface UserMapper {
     @Select("select * from user where user_id=#{user_id}")
     public User getUserById(int user_id);
 
+    //条件查询(班级)
+    @Select("select * from user where collection like CONCAT('%',#{collection,jdbcType=VARCHAR},'%')")
+    List<User> getUsers(User user);
+
     //用户注册
     @Insert("insert into user (username,nickname,password,identity) values(#{username},#{nickname},#{password}),#{identity})")
     public int insertUser(User user);
@@ -26,7 +30,7 @@ public interface UserMapper {
     public User login(User user);
 
     //更改用户信息
-    @Update("update assign set password=#{password} group=#{group} assign=#{assign} where user_id=#{user_id}")
+    @Update("update assign set password=#{password} collection=#{collection} assign=#{assign} where user_id=#{user_id}")
     public int update(User user);
 
 }
