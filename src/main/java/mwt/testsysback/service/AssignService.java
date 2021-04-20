@@ -11,7 +11,13 @@ public interface AssignService {
     public Assign getAssign(int assign_id);
 
     //条件查询(标题)
-    public List<User> getAssigns(Assign assign);
+    public List<Assign> getAssignByTitle(Assign assign);
+
+    //条件查询(学生)
+    public List<Assign> getAssignStudent(String username);
+
+    //条件查询(教师)
+    public List<Assign> getAssignTeacher(String username);
 
     //新建作业
     public boolean insertAssign(Assign assign);

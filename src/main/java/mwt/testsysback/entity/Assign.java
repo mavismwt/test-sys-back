@@ -6,6 +6,7 @@ public class Assign {
     private int score;
     private int weight;
     private String teachers;
+    private String students;
     private String file_source;
     private String file_report;
     private String date_start;
@@ -51,6 +52,14 @@ public class Assign {
 
     public void setTeachers(String teachers) {
         this.teachers = teachers;
+    }
+
+    public String getStudents() {
+        return students;
+    }
+
+    public void setStudents(String students) {
+        this.students = students;
     }
 
     public String getFile_source() {

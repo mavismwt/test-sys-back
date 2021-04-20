@@ -14,14 +14,22 @@ public interface AssignMapper {
 
     //条件查询(标题)
     @Select("select * from assign where title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')")
-    List<User> getAssigns(Assign assign);
+    public List<Assign> getAssignsByTitle(Assign assign);
 
-    //新建作业
+    //条件查询(学生)
+    @Select("select * from assign where students like CONCAT('%',#{username,jdbcType=VARCHAR},'%')")
+    public List<Assign> getAssignStudent(String username);
+
+    //条件查询(教师)
+    @Select("select * from assign where teachers like CONCAT('%',#{username,jdbcType=VARCHAR},'%')")
+    public List<Assign> getAssignTeacher(String username);
+
+    //新建作业-教师
     @Insert("insert into assign (title,detail,weight,teachers,text_example,date_start,date_end) " +
             "values(#{title},#{detail},#{weight},#{teachers},#{text_example},#{date_end},#{date_end})")
     public int insertAssign(Assign assign);
 
-    //删除作业
+    //删除作业-教师
     @Delete("delete from assign where assign_id=#{assign_id}")
     public int deleteAssign(int assign_id);
 

@@ -24,17 +24,30 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUsers",method = RequestMethod.GET)
-    public List<User> getUsers(@RequestBody User user) {
-
-        return userService.getUsers(user);
+    public CommonResult getUsers(@RequestBody User user) {
+        List<User> users = userService.getUsers(user);
+        if (users != null) {
+            return CommonResult.success(users);
+        } else {
+            return CommonResult.failed();
+        }
     }
-
-
 
     @RequestMapping(value = "/getUser",method = RequestMethod.GET)
     public CommonResult getUser(@RequestParam("user_id") int user_id){
-        if (userService.getUserById(user_id) != null) {
-            return CommonResult.success(userService.getUserById(user_id));
+        User user = userService.getUserById(user_id);
+        if (user != null) {
+            return CommonResult.success(user);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
+    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
+    public CommonResult updateUser(@RequestBody User user) {
+        if (userService.updateUser(user) >= 1) {
+            User user1 = userService.getUserById(user.getUser_id());
+            return CommonResult.success(user);
         } else {
             return CommonResult.failed();
         }
@@ -42,8 +55,9 @@ public class UserController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public CommonResult login2(@RequestBody User user) {
-        if (userService.login(user) != null) {
-            return CommonResult.success(userService.login(user));
+        User user1 = userService.login(user);
+        if (user1 != null) {
+            return CommonResult.success(user1);
         } else {
             return CommonResult.validateFailed();
         }

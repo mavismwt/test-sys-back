@@ -42,5 +42,11 @@ public class UserServiceImpl implements UserService {
         System.out.println("业务层：用户登录");
         return UserMapper.login(user);
     }
+
+    @Override
+    public int updateUser(User user) {
+        System.out.println("业务层：修改用户信息");
+        return UserMapper.updateUser(user);
+    }
 }
 

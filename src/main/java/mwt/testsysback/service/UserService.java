@@ -18,4 +18,7 @@ public interface UserService {
 
     //用户登录
     public User login(User user);
+
+    //更改用户信息
+    public int updateUser(User user);
 }

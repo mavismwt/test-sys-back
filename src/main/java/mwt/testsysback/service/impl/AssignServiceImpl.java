@@ -1,6 +1,5 @@
 package mwt.testsysback.service.impl;
 
-import mwt.testsysback.entity.User;
 import mwt.testsysback.mapper.AssignMapper;
 import mwt.testsysback.entity.Assign;
 import mwt.testsysback.service.AssignService;
@@ -21,9 +20,21 @@ public class AssignServiceImpl implements AssignService {
     }
 
     @Override
-    public List<User> getAssigns(Assign assign) {
-        System.out.println("业务层：用id查找作业");
-        return assignMapper.getAssigns(assign);
+    public List<Assign> getAssignByTitle(Assign assign) {
+        System.out.println("业务层：用title查找作业");
+        return assignMapper.getAssignsByTitle(assign);
+    }
+
+    @Override
+    public List<Assign> getAssignStudent(String username) {
+        System.out.println("业务层：用username查找作业");
+        return assignMapper.getAssignStudent(username);
+    }
+
+    @Override
+    public List<Assign> getAssignTeacher(String username) {
+        System.out.println("业务层：用username查找作业");
+        return assignMapper.getAssignTeacher(username);
     }
 
     @Override
