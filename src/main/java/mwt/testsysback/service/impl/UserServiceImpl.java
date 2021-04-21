@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers(User user) {
+    public List<User> getUsers(String nickname, String collection, String identity) {
         System.out.println("业务层：条件查询用户");
-        return UserMapper.getUsers(user);
+        return UserMapper.getUsers(nickname, collection, identity);
     }
 
     @Override

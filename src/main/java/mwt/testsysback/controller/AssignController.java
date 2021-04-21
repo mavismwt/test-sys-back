@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AssignController {
@@ -31,7 +32,7 @@ public class AssignController {
 
     //条件查询(标题)
     @RequestMapping(value = "/assign/title",method = RequestMethod.GET)
-    public CommonResult getAssignsByTitle(@RequestBody Assign assign) {
+    public CommonResult getAssignsByTitle(@RequestParam Assign assign) {
         List<Assign> assigns = assignService.getAssignByTitle(assign);
         if (assigns != null) {
             return CommonResult.success(assigns);
@@ -42,8 +43,8 @@ public class AssignController {
 
     //条件查询(学生)
     @RequestMapping(value = "/assign/student",method = RequestMethod.GET)
-    public CommonResult getAssignsStudent(@RequestParam String username) {
-        List<Assign> assigns = assignService.getAssignStudent(username);
+    public CommonResult getAssignsStudent(@RequestParam Map map) {
+        List<Assign> assigns = assignService.getAssignStudent(map.get("username").toString(),map.get("title").toString());
         if (assigns != null) {
             return CommonResult.success(assigns);
         } else {
@@ -53,8 +54,8 @@ public class AssignController {
 
     //条件查询(教师)
     @RequestMapping(value = "/assign/teacher",method = RequestMethod.GET)
-    public CommonResult getAssignTeacher(@RequestParam String username) {
-        List<Assign> assigns = assignService.getAssignTeacher(username);
+    public CommonResult getAssignTeacher(@RequestParam Map map) {
+        List<Assign> assigns = assignService.getAssignTeacher(map.get("username").toString(),map.get("title").toString());
         if (assigns != null) {
             return CommonResult.success(assigns);
         } else {
@@ -78,6 +79,25 @@ public class AssignController {
         Assign assign1 = assignService.updateAssign(assign);
         if (assign1 != null) {
             return CommonResult.success(assign1);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+    //分发作业
+    @RequestMapping(value = "/assign/update/student",method = RequestMethod.POST)
+    public CommonResult dispatchAssign(@RequestBody Assign assign) {
+        if (assignService.dispatchAssign(assign) >= 1) {
+            return CommonResult.success("true");
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
+    //助教
+    @RequestMapping(value = "/assign/update/teacher",method = RequestMethod.POST)
+    public CommonResult assistAssign(@RequestBody Assign assign) {
+        if (assignService.assistAssign(assign) >= 1) {
+            return CommonResult.success("true");
         } else {
             return CommonResult.failed();
         }

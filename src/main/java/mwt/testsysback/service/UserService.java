@@ -11,7 +11,7 @@ public interface UserService {
     public User getUserById(int user_id);
 
     //条件查询
-    public List<User> getUsers(User user);
+    public List<User> getUsers(String nickname, String collection, String identity);
 
     //用户注册
     public void insertUser(User user);

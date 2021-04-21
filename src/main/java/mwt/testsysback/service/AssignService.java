@@ -4,6 +4,7 @@ import mwt.testsysback.entity.Assign;
 import mwt.testsysback.entity.User;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ public interface AssignService {
     public List<Assign> getAssignByTitle(Assign assign);
 
     //条件查询(学生)
-    public List<Assign> getAssignStudent(String username);
+    public List<Assign> getAssignStudent(String username,String title);
 
     //条件查询(教师)
-    public List<Assign> getAssignTeacher(String username);
+    public List<Assign> getAssignTeacher(String username,String title);
 
     //新建作业
     public boolean insertAssign(Assign assign);
@@ -31,6 +32,12 @@ public interface AssignService {
 
     //修改作业-教师
     public Assign updateAssign(Assign assign);
+
+    //分发作业
+    public int dispatchAssign(Assign assign);
+
+    //添加助教
+    public int assistAssign(Assign assign);
 
     //提交作业-学生
     public Assign uploadAssign(Assign assign);

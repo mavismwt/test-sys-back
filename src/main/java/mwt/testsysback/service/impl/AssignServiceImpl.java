@@ -26,15 +26,15 @@ public class AssignServiceImpl implements AssignService {
     }
 
     @Override
-    public List<Assign> getAssignStudent(String username) {
+    public List<Assign> getAssignStudent(String username,String title) {
         System.out.println("业务层：用username查找作业");
-        return assignMapper.getAssignStudent(username);
+        return assignMapper.getAssignStudent(username,title);
     }
 
     @Override
-    public List<Assign> getAssignTeacher(String username) {
+    public List<Assign> getAssignTeacher(String username,String title) {
         System.out.println("业务层：用username查找作业");
-        return assignMapper.getAssignTeacher(username);
+        return assignMapper.getAssignTeacher(username,title);
     }
 
     @Override
@@ -72,6 +72,16 @@ public class AssignServiceImpl implements AssignService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public int dispatchAssign(Assign assign) {
+        return assignMapper.dispatchAssign(assign);
+    }
+
+    @Override
+    public int assistAssign(Assign assign) {
+        return assignMapper.assistAssign(assign);
     }
 
     @Override

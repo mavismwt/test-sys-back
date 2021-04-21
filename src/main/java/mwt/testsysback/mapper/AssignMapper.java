@@ -17,12 +17,14 @@ public interface AssignMapper {
     public List<Assign> getAssignsByTitle(Assign assign);
 
     //条件查询(学生)
-    @Select("select * from assign where students like CONCAT('%',#{username,jdbcType=VARCHAR},'%')")
-    public List<Assign> getAssignStudent(String username);
+    @Select("select * from assign where students like CONCAT('%',#{username,jdbcType=VARCHAR},'%') " +
+            "and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')\"")
+    public List<Assign> getAssignStudent(String username,String title);
 
     //条件查询(教师)
-    @Select("select * from assign where teachers like CONCAT('%',#{username,jdbcType=VARCHAR},'%')")
-    public List<Assign> getAssignTeacher(String username);
+    @Select("select * from assign where teachers like CONCAT('%',#{username,jdbcType=VARCHAR},'%') " +
+            "and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')")
+    public List<Assign> getAssignTeacher(String username,String title);
 
     //新建作业-教师
     @Insert("insert into assign (title,detail,weight,teachers,test_example,date_start,date_end) " +
@@ -40,6 +42,14 @@ public interface AssignMapper {
     //修改作业-教师
     @Update("update assign set title=#{title},detail=#{detail},weight=#{weight},date_end=#{date_end},test_example=#{test_example} where assign_id=#{assign_id}")
     public int updateAssign(Assign assign);
+
+    //分发作业
+    @Update("update assign set students=#{students} where assign_id=#{assign_id}")
+    public int dispatchAssign(Assign assign);
+
+    //添加助教
+    @Update("update assign set teachers=#{teachers} where assign_id=#{assign_id}")
+    public int assistAssign(Assign assign);
 
     //提交作业-学生
     @Update("update assign set file_source=#{file_source} file_report=#{file_report} where assign_id=#{assign_id}")

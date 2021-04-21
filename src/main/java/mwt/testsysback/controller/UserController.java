@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -24,8 +25,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUsers",method = RequestMethod.GET)
-    public CommonResult getUsers(@RequestBody User user) {
-        List<User> users = userService.getUsers(user);
+    public CommonResult getUsers(@RequestParam Map map) {
+        List<User> users = userService.getUsers(map.get("nickname").toString(),map.get("collection").toString(),map.get("identity").toString());
         if (users != null) {
             return CommonResult.success(users);
         } else {
