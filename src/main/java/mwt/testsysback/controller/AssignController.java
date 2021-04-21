@@ -83,24 +83,30 @@ public class AssignController {
         }
     }
 
-    //删除作业
-    @RequestMapping(value = "/assign/delete",method = RequestMethod.POST)
-    public CommonResult deleteAssign(@RequestBody Integer assign_id) {
-        if (assignService.deleteAssign(assign_id)) {
-            return CommonResult.success("success");
-        } else {
-            return CommonResult.failed();
-        }
-    }
-
-    //上传作业
-//    @RequestMapping(value = "/assign/add",method = RequestMethod.POST)
-//    public CommonResult uploadAssign(@RequestBody Assign assign) {
-//        if (assignService.insertAssign(assign)) {
+//    //删除作业
+//    @RequestMapping(value = "/assign/delete",method = RequestMethod.POST)
+//    public CommonResult deleteAssign(@RequestBody Integer assign_id) {
+//        if (assignService.deleteAssign(assign_id)) {
 //            return CommonResult.success("success");
 //        } else {
 //            return CommonResult.failed();
 //        }
 //    }
+
+    //删除作业
+    @RequestMapping(value = "/assign/delete",method = RequestMethod.POST)
+    public CommonResult deleteAssigns(@RequestParam("assign_id") String assign_id ) {
+        return CommonResult.success(assignService.deleteAssigns(assign_id));
+    }
+
+    //上传作业
+    @RequestMapping(value = "/assign/upload",method = RequestMethod.POST)
+    public CommonResult uploadAssign(@RequestBody Assign assign) {
+        if (assignService.insertAssign(assign)) {
+            return CommonResult.success("success");
+        } else {
+            return CommonResult.failed();
+        }
+    }
 
 }

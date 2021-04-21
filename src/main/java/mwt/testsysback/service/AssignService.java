@@ -2,6 +2,7 @@ package mwt.testsysback.service;
 
 import mwt.testsysback.entity.Assign;
 import mwt.testsysback.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public interface AssignService {
 
     //删除作业
     public boolean deleteAssign(int assign_id);
+
+    //批量删除作业-教师
+    public boolean deleteAssigns(String assign_id);
 
     //修改作业-教师
     public Assign updateAssign(Assign assign);

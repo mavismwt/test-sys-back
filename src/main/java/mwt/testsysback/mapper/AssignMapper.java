@@ -25,17 +25,20 @@ public interface AssignMapper {
     public List<Assign> getAssignTeacher(String username);
 
     //新建作业-教师
-    @Insert("insert into assign (title,detail,weight,teachers,text_example,date_start,date_end) " +
-            "values(#{title},#{detail},#{weight},#{teachers},#{text_example},#{date_end},#{date_end})")
+    @Insert("insert into assign (title,detail,weight,teachers,test_example,date_start,date_end) " +
+            "values(#{title},#{detail},#{weight},#{teachers},#{test_example},#{date_end},#{date_end})")
     public int insertAssign(Assign assign);
 
     //删除作业-教师
     @Delete("delete from assign where assign_id=#{assign_id}")
     public int deleteAssign(int assign_id);
 
+    //批量删除作业-教师
+    @Delete("delete from assign where assign_id in ${assign_id}")
+    public int deleteAssigns(String assign_id);
+
     //修改作业-教师
-    @Update("update assign set title=#{title} detail=#{detail} weight=#{weight} score=#{score}" +
-            "date_end=#{date_end} text_example=#{text_example} where assign_id=#{assign_id}")
+    @Update("update assign set title=#{title},detail=#{detail},weight=#{weight},date_end=#{date_end},test_example=#{test_example} where assign_id=#{assign_id}")
     public int updateAssign(Assign assign);
 
     //提交作业-学生

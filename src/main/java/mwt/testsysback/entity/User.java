@@ -6,7 +6,7 @@ public class User {
     private String username;
     private String password;
     private String identity;
-    private String number;
+    private String nickname;
     private String collection;
     private String assign;
 
@@ -42,12 +42,12 @@ public class User {
         this.identity = identity;
     }
 
-    public  String getNumber() {
-        return number;
+    public  String getNickname() {
+        return nickname;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public  String getCollection() {

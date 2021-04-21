@@ -3,6 +3,7 @@ package mwt.testsysback.entity;
 public class Assign {
     private int assign_id;
     private String title;
+    private String detail;
     private int score;
     private int weight;
     private String teachers;
@@ -28,6 +29,14 @@ public class Assign {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public int getScore() {

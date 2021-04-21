@@ -56,7 +56,17 @@ public class AssignServiceImpl implements AssignService {
     }
 
     @Override
+    public boolean deleteAssigns(String assign_id) {
+        if (assignMapper.deleteAssigns(assign_id) >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public Assign updateAssign(Assign assign) {
+        System.out.println("业务层：修改作业");
         if (assignMapper.updateAssign(assign) >= 1) {
             return assignMapper.getAssignByID(assign.getAssign_id());
         } else {
