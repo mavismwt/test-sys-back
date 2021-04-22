@@ -31,8 +31,8 @@ public interface UserMapper {
     public User login(User user);
 
     //更改用户信息
-    @Update("update assign set password=#{password} username=#{username} name=#{name} " +
-            "collection=#{collection} assign=#{assign} where user_id=#{user_id}")
+    @Update("update assign set password=#{password},username=#{username},nickname=#{nickname}," +
+            "collection=#{collection},assign=#{assign} where user_id=#{user_id}")
     public int updateUser(User user);
 
 }
