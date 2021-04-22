@@ -45,14 +45,11 @@ public interface AssignMapper {
 
     //分发作业
     @Update("update assign set students=#{students} where assign_id=#{assign_id}")
-    public int dispatchAssign(Assign assign);
+    public int dispatchAssign(int assign_id, String students);
 
     //添加助教
     @Update("update assign set teachers=#{teachers} where assign_id=#{assign_id}")
-    public int assistAssign(Assign assign);
+    public int assistAssign(int assign_id, String teachers);
 
-    //提交作业-学生
-    @Update("update assign set file_source=#{file_source} file_report=#{file_report} where assign_id=#{assign_id}")
-    public int uploadAssign(Assign assign);
 
 }

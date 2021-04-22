@@ -34,11 +34,9 @@ public interface AssignService {
     public Assign updateAssign(Assign assign);
 
     //分发作业
-    public int dispatchAssign(Assign assign);
+    public int dispatchAssign(int assign_id, String students);
 
     //添加助教
-    public int assistAssign(Assign assign);
+    public int assistAssign(int assign_id, String teachers);
 
-    //提交作业-学生
-    public Assign uploadAssign(Assign assign);
 }

@@ -4,12 +4,9 @@ public class Assign {
     private int assign_id;
     private String title;
     private String detail;
-    private int score;
     private int weight;
     private String teachers;
     private String students;
-    private String file_source;
-    private String file_report;
     private String date_start;
     private String date_end;
     private String test_info;
@@ -39,14 +36,6 @@ public class Assign {
         this.detail = detail;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public int getWeight() {
         return weight;
     }
@@ -69,22 +58,6 @@ public class Assign {
 
     public void setStudents(String students) {
         this.students = students;
-    }
-
-    public String getFile_source() {
-        return file_source;
-    }
-
-    public void setFile_source(String file_source) {
-        this.file_source = file_source;
-    }
-
-    public String getFile_report() {
-        return file_report;
-    }
-
-    public void setFile_report(String file_report) {
-        this.file_report = file_report;
     }
 
     public String getDate_start() {

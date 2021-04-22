@@ -75,21 +75,12 @@ public class AssignServiceImpl implements AssignService {
     }
 
     @Override
-    public int dispatchAssign(Assign assign) {
-        return assignMapper.dispatchAssign(assign);
+    public int dispatchAssign(int assign_id, String students) {
+        return assignMapper.dispatchAssign(assign_id,students);
     }
 
     @Override
-    public int assistAssign(Assign assign) {
-        return assignMapper.assistAssign(assign);
-    }
-
-    @Override
-    public Assign uploadAssign(Assign assign) {
-        if (assignMapper.uploadAssign(assign) >= 1) {
-            return assignMapper.getAssignByID(assign.getAssign_id());
-        } else {
-            return null;
-        }
+    public int assistAssign(int assign_id, String teachers) {
+        return assignMapper.assistAssign(assign_id, teachers);
     }
 }
