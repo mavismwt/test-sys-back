@@ -7,6 +7,7 @@ public class Records {
     private String username;
     private String nickname;
     private String date;
+    private String info;
     private String file_source;
     private String file_report;
     private int score;
@@ -58,6 +59,14 @@ public class Records {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getFile_source() {

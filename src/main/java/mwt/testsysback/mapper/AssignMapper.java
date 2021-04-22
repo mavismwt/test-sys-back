@@ -18,7 +18,7 @@ public interface AssignMapper {
 
     //条件查询(学生)
     @Select("select * from assign where students like CONCAT('%',#{username,jdbcType=VARCHAR},'%') " +
-            "and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')\"")
+            "and title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')")
     public List<Assign> getAssignStudent(String username,String title);
 
     //条件查询(教师)

@@ -43,12 +43,37 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public boolean updateRecord(Records records) {
-        if (recordMapper.updateRecord(records) >= 1) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean updateScore(Records records) {
+
+        int score= records.getScore();
+        int assign_id = records.getAssign_id();
+        String date = records.getDate();
+        String username = records.getUsername();
+        int res = recordMapper.updateScore(score,date,assign_id,username);
+        return (res >= 1);
+
+    }
+
+    @Override
+    public boolean updateReport(Records records) {
+        String file_report = records.getFile_report();
+        int assign_id = records.getAssign_id();
+        String date = records.getDate();
+        String username = records.getUsername();
+
+        int res = recordMapper.uploadReport(file_report,date,assign_id,username);
+        return (res >= 1);
+    }
+
+    @Override
+    public boolean updateSource(Records records) {
+        String file_source = records.getFile_source();
+        int assign_id = records.getAssign_id();
+        String date = records.getDate();
+        String username = records.getUsername();
+
+        int res = recordMapper.uploadReport(file_source,date,assign_id,username);
+        return (res >= 1);
     }
 
     @Override

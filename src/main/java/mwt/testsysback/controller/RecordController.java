@@ -42,7 +42,10 @@ public class RecordController {
 
     //获取单条
     @RequestMapping(value = "/record/single",method = RequestMethod.GET)
-    public CommonResult getOneRecords(@RequestParam Records record) {
+    public CommonResult getOneRecords(@RequestParam("assign_id") int assign_id,@RequestParam("username") String username) {
+        Records record = new Records();
+        record.setAssign_id(assign_id);
+        record.setUsername(username);
         Records records = recordService.getOneRecord(record);
         if (records != null) {
             return CommonResult.success(records);
@@ -51,24 +54,26 @@ public class RecordController {
         }
     }
 
-    //提交记录
-    @RequestMapping(value = "/record/update",method = RequestMethod.POST)
-    public CommonResult updateRecords(@RequestBody Records record) {
-        Records records = recordService.getOneRecord(record);
-        if (records == null) {
-            if (recordService.insertRecord(record)) {
-                return CommonResult.success("添加成功");
-            } else {
-                return CommonResult.failed("添加失败");
+
+    ///  更新报告
+    @RequestMapping(value = "/record/report")
+    public CommonResult updateReport(@RequestBody Records record) {
+        if (recordService.getOneRecord(record) != null) {
+            if (recordService.updateReport(record)) {
+                return CommonResult.success("更新提交记录成功");
             }
+            return CommonResult.failed();
         } else {
-            if (recordService.updateRecord(record)) {
-                return CommonResult.success("更新成功");
-            } else {
-                return CommonResult.failed("更新失败");
+            if (recordService.insertRecord(record)) {
+                if (recordService.updateReport(record)) {
+                    return CommonResult.success("更新提交记录成功");
+                }
+                return CommonResult.failed();
             }
+            return CommonResult.failed();
         }
     }
+
 
 
 }

@@ -28,6 +28,8 @@ public class AssignServiceImpl implements AssignService {
     @Override
     public List<Assign> getAssignStudent(String username,String title) {
         System.out.println("业务层：用username查找作业");
+        if (title == "") {
+        }
         return assignMapper.getAssignStudent(username,title);
     }
 

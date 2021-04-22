@@ -25,7 +25,13 @@ public interface RecordService {
     public boolean insertRecord(Records records);
 
     //更新数据
-    public boolean updateRecord(Records records);
+    public boolean updateScore(Records records);
+
+    //更新数据
+    public boolean updateSource(Records records);
+
+    //更新数据
+    public boolean updateReport(Records records);
 
     //删除数据
     public boolean deleteRecord(String record_id);
