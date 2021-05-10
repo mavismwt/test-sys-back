@@ -20,7 +20,9 @@ public class RecordController {
 
     //根据作业
     @RequestMapping(value = "/record/assign",method = RequestMethod.GET)
-    public CommonResult getRecordsByAssign(@RequestParam Records record) {
+    public CommonResult getRecordsByAssign(@RequestParam("assign_id") int assign_id) {
+        Records record = new Records();
+        record.setAssign_id(assign_id);
         List<Records> records = recordService.getRecords(record);
         if (records != null) {
             return CommonResult.success(records);
@@ -31,7 +33,9 @@ public class RecordController {
 
     //根据用户
     @RequestMapping(value = "/record/user",method = RequestMethod.GET)
-    public CommonResult getRecordsByUser(@RequestParam Records record) {
+    public CommonResult getRecordsByUser(@RequestParam("username") String username) {
+        Records record = new Records();
+        record.setUsername(username);
         List<Records> records = recordService.getMyRecord(record);
         if (records != null) {
             return CommonResult.success(records);

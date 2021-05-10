@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,17 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @PostMapping(value="/export")
+    public void exportExcelAll(HttpServletRequest request,HttpServletResponse response,@RequestBody String str) {
+
+        userService.exportExcel(request,response,str);
+    }
+
+    @PostMapping(value="/exportExcelAll")
+    public void exportExcel(HttpServletRequest request,HttpServletResponse response,@RequestBody User user) {
+        userService.exportExcelAll(request,response,user);
+    }
 
     @RequestMapping(value = "/getAllUsers",method = RequestMethod.GET)
     public List<User> getAllUsers(){

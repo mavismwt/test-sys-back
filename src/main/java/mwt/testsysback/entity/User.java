@@ -9,6 +9,7 @@ public class User {
     private String nickname;
     private String collection;
     private String assign;
+    private int score;
 
     public int getUser_id() {
         return user_id;
@@ -64,5 +65,13 @@ public class User {
 
     public void setAssign(String assign) {
         this.assign = assign;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

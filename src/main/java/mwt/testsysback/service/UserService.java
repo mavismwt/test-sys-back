@@ -1,6 +1,8 @@
 package mwt.testsysback.service;
 import mwt.testsysback.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface UserService {
@@ -21,4 +23,10 @@ public interface UserService {
 
     //更改用户信息
     public int updateUser(User user);
+
+    //导出所有用户信息
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, String id);
+
+    //导出所有用户信息
+    public void exportExcelAll(HttpServletRequest request, HttpServletResponse response,User user);
 }
