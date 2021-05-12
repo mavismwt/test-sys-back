@@ -2,7 +2,11 @@ package mwt.testsysback.controller;
 
 import mwt.testsysback.common.CommonResult;
 import mwt.testsysback.entity.Records;
+import mwt.testsysback.entity.User;
+import mwt.testsysback.service.ExecuteCLangService;
+import mwt.testsysback.service.JudgerService;
 import mwt.testsysback.service.RecordService;
+import mwt.testsysback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -17,8 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-
-@Controller
+@RestController
 public class FileController {
 
     @Autowired
@@ -27,11 +30,13 @@ public class FileController {
     @Autowired
     RecordService recordService;
 
+    @Autowired
+    JudgerService judgerService;
 
     //单文件上传
     @RequestMapping("/file/upload")
     @ResponseBody
-    public CommonResult fileUpload(@RequestBody MultipartFile file){
+    public CommonResult fileUpload(@RequestBody MultipartFile file, @RequestParam("id") String  student_id){
         if(file.isEmpty()){
             return CommonResult.failed("不能上传空文件");
         }
@@ -40,7 +45,7 @@ public class FileController {
         System.out.println(fileName + "-->" + size);
 
         String path = "/Users/apple/Downloads/file/upload" ;
-        File dest = new File(path + "/" + fileName);
+        File dest = new File(path + "/" + student_id + "/" + fileName);
         if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
             dest.getParentFile().mkdir();
         }
@@ -96,11 +101,10 @@ public class FileController {
 
     //文件下载
     @RequestMapping("/download")
-
-    public String downLoad(HttpServletResponse response) throws UnsupportedEncodingException {
-        String filename="2.xlsx";
-        String filePath = "/Users/apple/Downloads/file/download" ;
-        File file = new File(filePath + "/" + filename);
+    public String downLoad(HttpServletResponse response,@RequestParam("fileName") String fileName) throws UnsupportedEncodingException {
+        String filename="本科17级电信第二党支部-同上四史思政大课心得感悟.docx";
+        String filePath = "/Users/apple/Downloads/file/upload" ;
+        File file = new File(filePath + "/U201713327/" + fileName);
         if(file.exists()){ //判断文件父目录是否存在
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
@@ -135,5 +139,16 @@ public class FileController {
             }
         }
         return null;
+    }
+
+
+    //C语言编译
+    @RequestMapping(value = "/clang")
+    public String executeCLang(){
+        return judgerService.executeCode("#include <stdio.h>\n" +
+                "\n" +
+                "int main() {\n" +
+                "  printf(\"hello world\\n\");\n" +
+                "}",1,1,1);
     }
 }
