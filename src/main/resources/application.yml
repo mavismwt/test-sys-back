@@ -6,6 +6,12 @@ spring:
     password: mwt.0809
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
 
 # spring集成Mybatis环境
 # 加载Mybatis映射文件

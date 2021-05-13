@@ -29,7 +29,7 @@ public interface RecordMapper {
     public int insertRecord(Records records);
 
     //更新评分
-    @Update("update record set score=#{score},date=#{date} " +
+    @Update("update record set score=#{score} " +
             "where assign_id=#{assign_id} and username=#{username}")
     public int updateScore(int score,String date,int assign_id,String username);
 

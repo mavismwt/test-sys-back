@@ -78,6 +78,35 @@ public class RecordController {
         }
     }
 
+    ///  更新源码
+    @RequestMapping(value = "/record/source")
+    public CommonResult updateSource(@RequestBody Records record) {
+        if (recordService.getOneRecord(record) != null) {
+            if (recordService.updateSource(record)) {
+                return CommonResult.success("更新提交记录成功");
+            }
+            return CommonResult.failed();
+        } else {
+            if (recordService.insertRecord(record)) {
+                if (recordService.updateSource(record)) {
+                    return CommonResult.success("更新提交记录成功");
+                }
+                return CommonResult.failed();
+            }
+            return CommonResult.failed();
+        }
+    }
+
+    ///  更新报告
+    @RequestMapping(value = "/record/score")
+    public CommonResult updateScore(@RequestBody Records record) {
+
+        if (recordService.updateScore(record)) {
+            return CommonResult.success(recordService.getOneRecord(record));
+        }
+        return CommonResult.failed();
+    }
+
 
 
 }

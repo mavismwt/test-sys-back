@@ -44,7 +44,7 @@ public class FileController {
         int size = (int) file.getSize();
         System.out.println(fileName + "-->" + size);
 
-        String path = "/Users/apple/Downloads/file/upload" ;
+        String path = "/Users/apple/Downloads/file/" ;
         File dest = new File(path + "/" + student_id + "/" + fileName);
         if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
             dest.getParentFile().mkdir();
@@ -73,7 +73,7 @@ public class FileController {
             return CommonResult.failed("不能上传空文件");
         }
 
-        String path = "/Users/apple/Downloads/file/upload" ;
+        String path = "/Users/apple/Downloads/file" ;
 
         for(MultipartFile file:files){
             String fileName = file.getOriginalFilename();
@@ -101,10 +101,8 @@ public class FileController {
 
     //文件下载
     @RequestMapping("/download")
-    public String downLoad(HttpServletResponse response,@RequestParam("fileName") String fileName) throws UnsupportedEncodingException {
-        String filename="本科17级电信第二党支部-同上四史思政大课心得感悟.docx";
-        String filePath = "/Users/apple/Downloads/file/upload" ;
-        File file = new File(filePath + "/U201713327/" + fileName);
+    public String downLoad(HttpServletResponse response,@RequestParam("filePath") String filePath,@RequestParam("fileName") String filename) throws UnsupportedEncodingException {
+        File file = new File(filePath);
         if(file.exists()){ //判断文件父目录是否存在
             response.setContentType("application/vnd.ms-excel;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");

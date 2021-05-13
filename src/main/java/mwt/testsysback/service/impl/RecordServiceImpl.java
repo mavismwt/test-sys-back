@@ -72,7 +72,7 @@ public class RecordServiceImpl implements RecordService {
         String date = records.getDate();
         String username = records.getUsername();
 
-        int res = recordMapper.uploadReport(file_source,date,assign_id,username);
+        int res = recordMapper.uploadSource(file_source,date,assign_id,username);
         return (res >= 1);
     }
 
