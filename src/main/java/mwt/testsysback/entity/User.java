@@ -9,7 +9,7 @@ public class User {
     private String nickname;
     private String collection;
     private String assign;
-    private int score;
+    private double score;
 
     public int getUser_id() {
         return user_id;
@@ -67,7 +67,7 @@ public class User {
         this.assign = assign;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 

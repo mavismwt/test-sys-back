@@ -1,24 +1,15 @@
 package mwt.testsysback.controller;
 
 import mwt.testsysback.common.CommonResult;
-import mwt.testsysback.entity.Records;
-import mwt.testsysback.entity.User;
-import mwt.testsysback.service.ExecuteCLangService;
-import mwt.testsysback.service.JudgerService;
+import mwt.testsysback.service.JudgeService;
 import mwt.testsysback.service.RecordService;
-import mwt.testsysback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -31,7 +22,7 @@ public class FileController {
     RecordService recordService;
 
     @Autowired
-    JudgerService judgerService;
+    JudgeService judgeService;
 
     //单文件上传
     @RequestMapping("/file/upload")
@@ -143,10 +134,6 @@ public class FileController {
     //C语言编译
     @RequestMapping(value = "/clang")
     public String executeCLang(){
-        return judgerService.executeCode("#include <stdio.h>\n" +
-                "\n" +
-                "int main() {\n" +
-                "  printf(\"hello world\\n\");\n" +
-                "}",1,1,1);
+        return judgeService.executeCode("/Users/apple/Downloads/main.cpp",1,1);
     }
 }

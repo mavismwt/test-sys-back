@@ -39,9 +39,9 @@ public interface RecordMapper {
     public int uploadReport(String file_report,String date,int assign_id,String username);
 
     //上传源码文件
-    @Update("update record set file_source=#{file_source},date=#{date} " +
+    @Update("update record set file_source=#{file_source},info=#{info},date=#{date} " +
             "where assign_id=#{assign_id} and username=#{username}")
-    public int uploadSource(String file_source,String date,int assign_id,String username);
+    public int uploadSource(String file_source,String info,String date,int assign_id,String username);
 
     //删除数据
     @Delete("delete from record where record_id=#{record_id}")

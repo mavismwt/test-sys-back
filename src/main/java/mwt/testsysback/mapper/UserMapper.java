@@ -31,8 +31,12 @@ public interface UserMapper {
     public User login(User user);
 
     //更改用户信息
-    @Update("update assign set password=#{password},username=#{username},nickname=#{nickname}," +
+    @Update("update user set password=#{password},username=#{username},nickname=#{nickname}," +
             "collection=#{collection},assign=#{assign} where user_id=#{user_id}")
     public int updateUser(User user);
+
+    //更改学生成绩
+    @Update("update user set score=#{score} where username=#{username}")
+    public int updateUserScore(double score, String username);
 
 }

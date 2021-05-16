@@ -1,24 +1,21 @@
-package mwt.testsysback.service;
+package mwt.testsysback.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import mwt.testsysback.service.JudgeService;
+import org.apache.poi.ss.usermodel.charts.ScatterChartSeries;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class JudgerService {
+public class JudgeServiceImpl implements JudgeService {
 
     public static final int init=0,ac=1,wrongAnswer=2,compileError=8;
     private int result;
     private String errorMsg;
     private double accuracy;
 
-    public String executeCode(String code, Integer language, Integer codeId, Integer studentId){
+    public String executeCode(String filePath, Integer codeId, Integer studentId){
 
 //        CodeQuestion codeQuestion = codeQuestionService.getById(codeId);
 //        codeQuestion.setSubmitNum(codeQuestion.getSubmitNum()+1);
@@ -34,8 +31,13 @@ public class JudgerService {
 //        codeSubmit.setCodeId(codeId);
 //        codeSubmit.setStudentId(studentId);
 
+        String[] array1= filePath.split("/");
+        String fileName = array1[array1.length-1];
+        String path = filePath.substring(0,filePath.length()-fileName.length());
+        String[] array2 = fileName.split("\\.");
+        String language = array2[array2.length-1];
+        String name = fileName.substring(0,fileName.length()-language.length()-1);
 
-        String path="/Users/apple/Downloads/";
         new File(path).mkdir();
         String compile=null;
         String execute=null;
@@ -46,41 +48,45 @@ public class JudgerService {
         File file = null;
 
         switch(language){
-            case 1: //c语言
-                file = new File(path+"main.cpp");
-                compile="gcc "+path+"main.cpp -o "+path+"main";
-                execute=path+"main.exe";
+            case "c": //c语言
+                compile = "gcc "+path + name + ".c -o " + path + name;
+                execute = path + name;
                 break;
-            case 2: //java
+            case "cpp": //c语言
+                compile = "gcc "+path + name + ".cpp -o " + path + name;
+                execute = path + name;
+                break;
+            case "java": //java
                 file = new File(path+"Main.java");
-                compile="javac "+path+"Main.java";
-                execute="java -classpath "+path+" Main";
+                compile = "javac "+path+ name + ".java";
+                execute = "java -classpath "+path+" " + name;
                 break;
-            case 3: //python
-                file = new File(path+"Main.py");
-                compile=null;
-                execute="python "+path+"Main.py";
+            case "py": //python
+                file = new File(path + name + ".py");
+                compile = null;
+                execute = "python " + path + name +".py";
                 break;
         }
 
-        OutputStream outputStream = null;
-        try{
-            outputStream = new FileOutputStream(file);
-            byte[] bytes= code.getBytes();  //读取输出流中的字节
-            outputStream.write(bytes);     //写入文件
-        }catch(IOException e) {
-            e.printStackTrace();
-            errorMsg = "写文件失败！";
-            return errorMsg;
-        }
-        if(outputStream!=null) {
-            try {
-                outputStream.close();  //关闭输出文件流
-            }catch(IOException el) {
-                errorMsg = "关闭文件输出流失败！";
-                return errorMsg;
-            }
-        }
+
+//        OutputStream outputStream = null;
+//        try{
+//            outputStream = new FileOutputStream(file);
+//            byte[] bytes= code.getBytes();  //读取输出流中的字节
+//            outputStream.write(bytes);     //写入文件
+//        }catch(IOException e) {
+//            e.printStackTrace();
+//            errorMsg = "写文件失败！";
+//            return errorMsg;
+//        }
+//        if(outputStream!=null) {
+//            try {
+//                outputStream.close();  //关闭输出文件流
+//            }catch(IOException el) {
+//                errorMsg = "关闭文件输出流失败！";
+//                return errorMsg;
+//            }
+//        }
         try {
             //开始编译
             Process process = null;
@@ -115,38 +121,39 @@ public class JudgerService {
                 int correct = 0;
 //                for (CodeJudgement codeJudgement : codeJudgementList) {
 //                    String input = codeJudgement.getTestInput();
-//                    process = Runtime.getRuntime().exec(execute);
+                process = Runtime.getRuntime().exec(execute);
 
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    PrintWriter writer = new PrintWriter(process.getOutputStream());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                PrintWriter writer = new PrintWriter(process.getOutputStream());
 //                    writer.println(input);
-                    writer.flush();
-                    writer.close();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String output = new String();
-                    String out = null;
-                    int i = 0;
-                    try {
-                        while ((out = reader.readLine()) != null) {
-                            if (i > 0) {
-                                output += (" " + out);
-                            } else {
-                                output += out;
-                            }
-                            i++;
-                            System.out.println(out);
+                writer.flush();
+                writer.close();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String output = new String();
+                String out = null;
+                int i = 0;
+                try {
+                    while ((out = reader.readLine()) != null) {
+                        if (i > 0) {
+                            output += (" " + out);
+                        } else {
+                            output += out;
                         }
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        i++;
                     }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(output);
+                result = 3;
 //                    if(output.equals(codeJudgement.getTestOutput()))
 //                        correct++;
-                }
+            }
 
 //                if (correct == codeJudgementList.size()) {
 //                    result = state = ac;
@@ -189,7 +196,14 @@ public class JudgerService {
         }
 //        codeSubmitService.save(codeSubmit);
 //        codeQuestionService.update(codeQuestion,updateWrapper);
-        return String.valueOf(result);
+        switch(result) {
+            case 8:
+                return "编译失败";
+            case 3:
+                return "编译通过";
+            default:
+                return "运行错误";
+        }
     }
 
     private String getErrors(InputStream in) {

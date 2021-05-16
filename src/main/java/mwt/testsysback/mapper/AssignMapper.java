@@ -28,7 +28,7 @@ public interface AssignMapper {
 
     //新建作业-教师
     @Insert("insert into assign (title,detail,weight,teachers,test_example,date_start,date_end) " +
-            "values(#{title},#{detail},#{weight},#{teachers},#{test_example},#{date_end},#{date_end})")
+            "values(#{title},#{detail},#{weight},#{teachers},#{test_example},#{date_start},#{date_end})")
     public int insertAssign(Assign assign);
 
     //删除作业-教师

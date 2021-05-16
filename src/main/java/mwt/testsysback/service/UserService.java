@@ -24,9 +24,14 @@ public interface UserService {
     //更改用户信息
     public int updateUser(User user);
 
+    //更改用户成绩
+    public int updateUserScore(double score, String username);
+
     //导出所有用户信息
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, String id);
 
     //导出所有用户信息
     public void exportExcelAll(HttpServletRequest request, HttpServletResponse response,User user);
+
+
 }

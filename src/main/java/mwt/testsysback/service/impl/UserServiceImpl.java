@@ -58,6 +58,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserScore(double score, String username) {
+        System.out.println("业务层：修改成绩");
+        return UserMapper.updateUserScore(score, username);
+    }
+
+    @Override
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, String str) {
         try {
             @SuppressWarnings("resource")
@@ -80,15 +86,6 @@ public class UserServiceImpl implements UserService {
 
             String[] items = str.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
 
-//            int[] id = new int[items.length];
-//
-//            for (int i = 0; i < items.length; i++) {
-//                try {
-//                    id[i] = Integer.parseInt(items[i]);
-//                } catch (NumberFormatException nfe) {
-//                    //NOTE: write something here if you need to recover from formatting errors
-//                };
-//            }
 
             for (int i = 0; i < items.length; i++) {
                 int id = Integer.parseInt(items[i]);
