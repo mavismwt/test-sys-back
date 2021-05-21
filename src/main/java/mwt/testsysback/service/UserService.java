@@ -16,7 +16,7 @@ public interface UserService {
     public List<User> getUsers(String nickname, String collection, String identity);
 
     //用户注册
-    public void insertUser(User user);
+    public int insertUser(User user);
 
     //用户登录
     public User login(User user);

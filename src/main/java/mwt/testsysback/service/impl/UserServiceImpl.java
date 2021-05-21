@@ -40,9 +40,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertUser(User user){
+    public int insertUser(User user){
         System.out.println("业务层：注册用户");
-        UserMapper.insertUser(user);
+        if (UserMapper.getUserByUsername(user.getUsername()) == null) {
+            return UserMapper.insertUser(user);
+        }
+        return 0;
     }
 
     @Override

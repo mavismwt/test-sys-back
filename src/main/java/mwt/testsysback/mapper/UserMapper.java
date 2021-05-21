@@ -17,13 +17,17 @@ public interface UserMapper {
     @Select("select * from user where user_id=#{user_id}")
     public User getUserById(int user_id);
 
+    //获取指定用户
+    @Select("select * from user where username=#{username}")
+    public User getUserByUsername(String username);
+
     //条件查询(人名/班级/身份)
     @Select("select * from user where nickname like concat('%',#{nickname,jdbcType=VARCHAR},'%') " +
             "and collection like CONCAT('%',#{collection,jdbcType=VARCHAR},'%') and identity=#{identity}")
     List<User> getUsers(String nickname, String collection, String identity);
 
     //用户注册
-    @Insert("insert into user (username,nickname,password,identity) values(#{username},#{nickname},#{password}),#{identity})")
+    @Insert("insert into user (username,nickname,password,identity) values(#{username},#{nickname},#{password},#{identity})")
     public int insertUser(User user);
 
     //用户登录

@@ -1,8 +1,11 @@
 package mwt.testsysback.controller;
 
 import mwt.testsysback.common.CommonResult;
+import mwt.testsysback.entity.User;
 import mwt.testsysback.service.JudgeService;
 import mwt.testsysback.service.RecordService;
+import mwt.testsysback.service.UserService;
+import mwt.testsysback.util.ParseExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,9 @@ public class FileController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     RecordService recordService;
@@ -130,10 +136,49 @@ public class FileController {
         return null;
     }
 
+    @RequestMapping("/file/import")
+    public CommonResult importAlumnis(@RequestBody MultipartFile file) throws IOException {
+        InputStream inputStream=null;
+        try {
+            //输入流
+            inputStream = file.getInputStream();
+            //原始文件名
+            String originalFilename = file.getOriginalFilename();
+            //文件后缀
+            String suffix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 
-    //C语言编译
-    @RequestMapping(value = "/clang")
-    public String executeCLang(){
-        return judgeService.executeCode("/Users/apple/Downloads/main.cpp",1,1);
+            ParseExcel parser = new ParseExcel();
+            //第三行开始读取
+            int startRow = 1;
+            List<String[]> result = parser.parseExcel(inputStream, suffix, startRow);
+            User user=null;
+            int count=0;
+            for(String[] ss : result){
+                // System.out.println(Arrays.toString(ss));
+                user=new User();
+                user.setUsername(ss[1]);
+                user.setNickname(ss[2]);
+                user.setIdentity(ss[3]);
+                user.setPassword(ss[4]);
+                //user.setDesc(ss[ss.length-1]);
+                //导入校友信息进入数据库
+                int i = userService.insertUser(user);
+                if(i==1){
+                    count++;
+                }
+            }
+            if(count==result.size()){
+                //全部数据导入成功
+                return CommonResult.success("全部数据导入成功");
+            }
+            return CommonResult.success("部分数据导入成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return CommonResult.failed("导入数据失败");
+        } finally {
+            //关闭流
+            inputStream.close();
+        }
     }
 }
