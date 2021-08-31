@@ -47,9 +47,10 @@ public class RecordServiceImpl implements RecordService {
 
         int score= records.getScore();
         int assign_id = records.getAssign_id();
+        String comment = records.getComment();
         String date = records.getDate();
         String username = records.getUsername();
-        int res = recordMapper.updateScore(score,date,assign_id,username);
+        int res = recordMapper.updateScore(score,comment,date,assign_id,username);
         return (res >= 1);
 
     }

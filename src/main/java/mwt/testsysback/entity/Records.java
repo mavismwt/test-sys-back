@@ -11,6 +11,7 @@ public class Records {
     private String file_source;
     private String file_report;
     private int score;
+    private String comment;
     private int weight;
 
     public int getRecord_id() {
@@ -91,6 +92,14 @@ public class Records {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getWeight() {

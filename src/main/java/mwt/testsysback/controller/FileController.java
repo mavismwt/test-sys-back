@@ -124,7 +124,7 @@ public class FileController {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("----------file download---" + filename);
+            System.out.println("file download-->" + filename);
             try {
                 bis.close();
                 fis.close();
@@ -159,7 +159,7 @@ public class FileController {
                 user.setUsername(ss[1]);
                 user.setNickname(ss[2]);
                 user.setIdentity(ss[3]);
-                user.setPassword(ss[4]);
+                //user.setPassword(ss[4]);
                 //user.setDesc(ss[ss.length-1]);
                 //导入校友信息进入数据库
                 int i = userService.insertUser(user);

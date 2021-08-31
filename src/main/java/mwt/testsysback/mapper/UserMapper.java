@@ -27,7 +27,7 @@ public interface UserMapper {
     List<User> getUsers(String nickname, String collection, String identity);
 
     //用户注册
-    @Insert("insert into user (username,nickname,password,identity) values(#{username},#{nickname},#{password},#{identity})")
+    @Insert("insert into user (username,nickname,identity) values(#{username},#{nickname},#{identity})")
     public int insertUser(User user);
 
     //用户登录

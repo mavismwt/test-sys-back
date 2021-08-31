@@ -23,7 +23,6 @@ public class UserController {
 
     @PostMapping(value="/export")
     public void exportExcelAll(HttpServletRequest request,HttpServletResponse response,@RequestBody String str) {
-
         userService.exportExcel(request,response,str);
     }
 
@@ -62,6 +61,15 @@ public class UserController {
         if (userService.updateUser(user) >= 1) {
             User user1 = userService.getUserById(user.getUser_id());
             return CommonResult.success(user);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
+    @RequestMapping(value = "/insertUser",method = RequestMethod.POST)
+    public CommonResult insertUser(@RequestBody User user) {
+        if (userService.insertUser(user) >= 1) {
+            return CommonResult.success("注册成功");
         } else {
             return CommonResult.failed();
         }

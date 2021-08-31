@@ -29,9 +29,9 @@ public interface RecordMapper {
     public int insertRecord(Records records);
 
     //更新评分
-    @Update("update record set score=#{score} " +
+    @Update("update record set score=#{score},comment=#{comment} " +
             "where assign_id=#{assign_id} and username=#{username}")
-    public int updateScore(int score,String date,int assign_id,String username);
+    public int updateScore(int score,String comment,String date,int assign_id,String username);
 
     //上传报告文件
     @Update("update record set file_report=#{file_report},date=#{date} " +

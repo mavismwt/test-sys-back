@@ -149,7 +149,7 @@ public class JudgeServiceImpl implements JudgeService {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(output);
+                //System.out.println(output);
                 result = 3;
 //                    if(output.equals(codeJudgement.getTestOutput()))
 //                        correct++;

@@ -3,11 +3,13 @@ package mwt.testsysback.mapper;
 import mwt.testsysback.entity.Collection;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface CollectionMapper {
     //查找全部班级
     @Select("select * from collection")
-    public Collection getAllCollection(Collection collection);
+    public List<Collection> getAllCollection();
 
     //查找班级
     @Select("select * from collection where collection_id=#{collection_id}")
